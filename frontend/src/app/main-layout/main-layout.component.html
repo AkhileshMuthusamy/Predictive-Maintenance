@@ -1,0 +1,119 @@
+<div class="h-100">
+  <div [ngStyle]="{height: '64px'}" [ngStyle.lt-sm]="{height: '56px'}" style="background-color: teal" *ngIf="!showMenu && !isHomePage"></div>
+
+  <div fxLayout="row" class="header" [ngStyle]="{height: '64px'}" *ngIf="isHomePage">
+    <div fxFlex fxLayout="row" fxLayoutAlign="start center">
+      <span fxLayout="row" fxLayoutAlign="space-between center" (click)="navigate('/home')">
+        <img class="header-logo" src="assets/images/logo.png" />
+      </span>
+      <label class="text-title pl-3" (click)="navigate('/home')">Predictive Maintenance</label>
+    </div>
+
+    <div fxFlex fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="20px">
+      <label class="round-button px-3 py-2" (click)="navigate('/dashboard')">DASHBOARD</label>
+      <!-- GitHub button -->
+      <div class="round-button px-3 py-2" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+        <img height="16px" src="assets/images/GitHub_logo.png"/>
+        <a class="text" target="_blank" href="https://github.com/AkhileshMuthusamy/Predictive-Maintenance" data-size="large" aria-label="Follow @AkhileshMuthusamy on GitHub">Source Code</a>
+      </div>
+    </div>
+  </div>
+
+  <div [ngStyle]="{height: '64px'}" [ngStyle.lt-sm]="{height: '56px'}" *ngIf="showMenu">
+    <mat-toolbar color="primary">
+      <!-- Mobile Header -->
+      <mat-toolbar-row fxHide.gt-xs>
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100">
+          <button style="width: 30px;" mat-icon-button (click)="sidenav.toggle()">
+            <mat-icon>menu</mat-icon>
+          </button>
+          <span fxLayout="row" fxLayoutAlign="space-between center">
+            <img class="header-logo" src="assets/images/logo.png" />
+          </span>
+          <!-- <button mat-icon-button [matMenuTriggerFor]="beforeMenu">
+            <mat-icon>more_vert</mat-icon>
+          </button> -->
+        </div>
+      </mat-toolbar-row>
+      <!-- Desktop Header -->
+      <mat-toolbar-row fxHide.lt-sm>
+        <div class="relative"></div>
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100">
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <button mat-icon-button (click)="showMenuLabel = !showMenuLabel">
+              <mat-icon>menu</mat-icon>
+            </button>
+            <span fxLayout="row" class="pl-4" fxLayoutAlign="space-between center" (click)="navigate('/home')">
+              <img class="header-logo" src="assets/images/logo.png" />
+            </span>
+            <label class="text-title pl-3" (click)="navigate('/home')">Predictive Maintenance</label>
+          </div>
+          <!-- <button mat-icon-button [matMenuTriggerFor]="beforeMenu">
+            <mat-icon>more_vert</mat-icon>
+          </button> -->
+        </div>
+      </mat-toolbar-row>
+      <!-- <mat-menu #beforeMenu="matMenu" xPosition="before">
+        <button mat-menu-item (click)="openModal()">
+          <mat-icon>vpn_key</mat-icon>
+          <span>Change Password</span>
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>meeting_room</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu> -->
+    </mat-toolbar>
+  </div>
+
+  <div ngClass="full-height-lt-sm" ngClass.gt-xs="full-height-gt-xs">
+    <mat-sidenav-container class="h-100 pt-0" autosize>
+      <mat-sidenav [fxHide]="!showMenu" #sidenav [mode]="sideMenuMode" class="dark-bg" [opened]="sideMenuOpened" (closed)="true">
+        <mat-selection-list [multiple]="false">
+          <mat-list-option class="text-white" (click)="navigate('/dashboard')">
+            <mat-icon mat-list-icon>donut_large</mat-icon>
+            <span *ngIf="showMenuLabel">
+              Dashboard
+            </span>
+          </mat-list-option>
+          <mat-divider></mat-divider>
+          <mat-list-option class="text-white" (click)="navigate('/predict')">
+            <mat-icon mat-list-icon>batch_prediction</mat-icon>
+            <span *ngIf="showMenuLabel">
+              Device Input
+            </span>
+          </mat-list-option>
+          <mat-divider></mat-divider>
+          <mat-list-option class="text-white" (click)="navigate('/settings')">
+            <mat-icon mat-list-icon>settings</mat-icon>
+            <span *ngIf="showMenuLabel">
+              Settings
+            </span>
+          </mat-list-option>
+          <mat-divider></mat-divider>
+          <!--<mat-list-option class="text-white" (click)="navigate('/admin/order')">
+            <mat-icon mat-list-icon>list_alt</mat-icon>
+            <span *ngIf="showMenuLabel">
+              Orders
+            </span>
+          </mat-list-option>
+          <mat-divider></mat-divider>
+          <mat-list-option class="text-white" (click)="navigate('/admin/user')">
+            <mat-icon mat-list-icon>account_box</mat-icon>
+            <span *ngIf="showMenuLabel">
+              Users
+            </span>
+          </mat-list-option>
+          <mat-divider></mat-divider> -->
+        </mat-selection-list>
+      </mat-sidenav>
+
+      <mat-sidenav-content>
+
+        <router-outlet></router-outlet>
+
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+
+</div>

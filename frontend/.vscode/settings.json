@@ -1,0 +1,4 @@
+{
+    "angular.enable-strict-mode-prompt": true,
+    "typescript.tsdk": "node_modules\\typescript\\lib"
+}
