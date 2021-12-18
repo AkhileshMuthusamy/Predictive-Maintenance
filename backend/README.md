@@ -1,6 +1,13 @@
 # Predictive Maintenance Backend
 
+## Setup
 
-`pip install -r requirements.txt`
+Run `pip install -r requirements.txt` once you download the code.
 
-`flask run`
+## Development
+
+Run `flask run`
+
+## Available APIs
+
+![API](..\static_contents\APIs.png)
