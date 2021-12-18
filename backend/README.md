@@ -10,4 +10,4 @@ Run `flask run`
 
 ## Available APIs
 
-![API](..\static_contents\APIs.png)
+![API](../static_contents/APIs.png)
