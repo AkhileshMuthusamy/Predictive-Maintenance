@@ -12,7 +12,7 @@ The objective of the project is to detect component deterioration at very early 
 
 ## Implementation
 
-![Implementation](static_contents\implementation.jpg)
+![Implementation](static_contents\implementation.jpg?raw=true)
 
 
 ## Prediction
