@@ -1,5 +1,11 @@
 # Predictive-Maintenance (Group - 4)
 
+## Hosting
+
+[Netlify](https://predictive-maintenance-tool.netlify.app/) : https://predictive-maintenance-tool.netlify.app/ 
+
+## Introduction
+
 Predictive maintenance is the application of data-driven, approaches to examine equipment status and anticipate when repair should be conducted.
 
 
@@ -18,3 +24,11 @@ The objective of the project is to detect component deterioration at very early 
 ## Prediction
 
 ![Prediction](static_contents/prediction_graph.jpg)
+
+## Dashboard
+
+![Dashboard UI](static_contents/dashboard.jpg)
+
+## Device Remaining Life
+
+![Remaining Life](static_contents/prediction-ui.jpg)
