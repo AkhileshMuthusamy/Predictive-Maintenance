@@ -1,4 +1,4 @@
-# Predictive-Maintenance (Group - 4)
+# Predictive-Maintenance
 
 ## Hosting
 
