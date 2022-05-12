@@ -20,9 +20,9 @@ export class FileUploadComponent implements OnInit {
 
   progress = 0;
   showFileList = false;
-  selectedFile: File;
+  selectedFile!: File | undefined;
   isLoading = false;
-  deviceList = [];
+  deviceList: Array<DeviceInfo> = [];
   uploadForm: FormGroup;
   hideDragNDrop = true;
 
@@ -34,7 +34,7 @@ export class FileUploadComponent implements OnInit {
     this.uploadForm = fb.group({
       id: [null, [Validators.required]]
     });
-    this.uploadForm.get('id').valueChanges.subscribe((value) => {
+    this.uploadForm.controls['id'].valueChanges.subscribe((value) => {
       if (!value) {
         this.hideDragNDrop = true;
       } else {
@@ -64,17 +64,17 @@ export class FileUploadComponent implements OnInit {
     );
   }
 
-  fileChangeEvent(event): void {
+  fileChangeEvent(event: any): void {
     if (event instanceof DragEvent) {
-      this.selectedFile = event.dataTransfer.files[0];
+      this.selectedFile = event.dataTransfer?.files[0];
     } else {
       if (event.target.files.length > 0) {
         this.selectedFile = event.target.files[0];
       }
     }
 
-    console.log(this.selectedFile.type);
-    if (this.validFileTypes.includes(this.selectedFile.type)) {
+    console.log(this.selectedFile?.type);
+    if (this.validFileTypes.includes(this.selectedFile?.type || '')) {
       this.showFileList = true;
     } else {
       this.resetState();
@@ -85,12 +85,14 @@ export class FileUploadComponent implements OnInit {
   uploadFile(): void {
 
     const uploadData = new FormData();
-    uploadData.append('id', this.uploadForm.controls.id.value);
-    uploadData.append('file', this.selectedFile, this.selectedFile.name);
+    uploadData.append('id', this.uploadForm.controls['id'].value);
+    if (this.selectedFile instanceof File) {
+      uploadData.append('file', this.selectedFile, this.selectedFile.name);
+    }
     this.apiService.uploadSensorDataFile(uploadData).subscribe((event: HttpEvent<any>) => {
         switch (event.type) {
           case HttpEventType.UploadProgress:
-            this.progress = Math.round((event.loaded / event.total) * 100);
+            this.progress = Math.round((event.loaded / (event.total || 0)) * 100);
             break;
           case HttpEventType.Response:
             if (event.body) {

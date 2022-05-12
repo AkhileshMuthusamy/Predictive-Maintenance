@@ -28,11 +28,11 @@ export class ApiService {
     return this.httpClient.get<APIResponse<[DeviceInfo]>>(`${this.apiURL}list/device`);
   }
 
-  addNewDevice(formData): Observable<APIResponse<null>> {
+  addNewDevice(formData: any): Observable<APIResponse<null>> {
     return this.httpClient.post<APIResponse<null>>(`${this.apiURL}device`, formData);
   }
 
-  editDevice(formData): Observable<APIResponse<null>> {
+  editDevice(formData: any): Observable<APIResponse<null>> {
     return this.httpClient.put<APIResponse<null>>(`${this.apiURL}device`, formData);
   }
 
@@ -55,7 +55,7 @@ export class ApiService {
     return this.httpClient.get<APIResponse<SettingsResponse>>(`${this.apiURL}settings`);
   }
 
-  updateSettings(formData): Observable<APIResponse<null>> {
+  updateSettings(formData: any): Observable<APIResponse<null>> {
     return this.httpClient.put<APIResponse<null>>(`${this.apiURL}settings`, formData);
   }
 }

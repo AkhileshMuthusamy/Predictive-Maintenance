@@ -10,9 +10,9 @@ import {Settings} from '../objects/global-objects';
 })
 export class DataService {
 
-  private $isSettingsLoading: boolean;
+  private $isSettingsLoading: boolean = false;
 
-  private settings = new BehaviorSubject<Settings>(null);
+  private settings = new BehaviorSubject<Settings | null>(null);
 
   constructor(private apiService: ApiService, private dateService: DateService, private snackBar: MatSnackBar) {
     this.loadSettings();
@@ -22,7 +22,7 @@ export class DataService {
     return this.$isSettingsLoading;
   }
 
-  public getSettings(): Observable<Settings> {
+  public getSettings(): Observable<Settings | null> {
     return this.settings.asObservable();
   }
 
@@ -38,7 +38,7 @@ export class DataService {
         };
         settingsData.id = response.data._id.$oid;
         settingsData.threshold = response.data.threshold;
-        settingsData.date = this.dateService.getDateString(response.data.last_updated.$date);
+        settingsData.date = (this.dateService.getDateString(response.data.last_updated.$date) || '');
         this.settings.next(settingsData);
 
       } else {

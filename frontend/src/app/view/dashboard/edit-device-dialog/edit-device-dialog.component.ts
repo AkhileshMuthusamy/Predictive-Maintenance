@@ -19,9 +19,11 @@ export class EditDeviceDialogComponent implements OnInit {
   constructor(
     private apiService: ApiService,
     private snackBar: MatSnackBar,
-    private dialogRef: MatDialogRef<NewDeviceDialogComponent>,
+    private dialogRef: MatDialogRef<EditDeviceDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DeviceInfo,
     private fb: FormBuilder) {
+      // Disabled dialog close when clicked outside
+      dialogRef.disableClose = true;
       this.editDeviceForm = this.fb.group({
         id: [this.data.deviceId],
         name: [this.data.name, [Validators.required]],
@@ -45,7 +47,7 @@ export class EditDeviceDialogComponent implements OnInit {
     this.apiService.editDevice(this.editDeviceForm.value).subscribe(response => {
       if (!response.error) {
         this.snackBar.open(response.message || 'Device updated successfully!', 'Close', {duration: 2000});
-        this.dialogRef.close();
+        this.dialogRef.close('SUCCESS');
       } else {
         this.snackBar.open(response.message, 'Close', {duration: 2000});
       }

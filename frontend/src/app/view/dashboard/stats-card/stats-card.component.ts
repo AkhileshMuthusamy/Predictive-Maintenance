@@ -12,10 +12,10 @@ import {DataService} from 'src/app/shared/services/data.service';
 export class StatsCardComponent implements OnInit {
 
   isLoading = false;
-  dashboard: DashboardStat;
+  dashboard!: DashboardStat;
   threshold = 50;
 
-  $subscription: Subscription;
+  $subscription!: Subscription;
 
   constructor(private apiService: ApiService, private dataService: DataService) { }
 
@@ -51,8 +51,12 @@ export class StatsCardComponent implements OnInit {
         let badDevice = 0;
         const dt = response.data;
         for (const d of dt) {
-          if (d.rul > this.threshold) {
-            goodDevice += 1;
+          if (d.rul !== null) {
+            if (d.rul > this.threshold) {
+              goodDevice += 1;
+            } else {
+              badDevice += 1;
+            }
           } else {
             badDevice += 1;
           }

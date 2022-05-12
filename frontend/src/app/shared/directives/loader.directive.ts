@@ -19,7 +19,7 @@ export class LoaderDirective {
     'align-items': 'center'
   };
 
-  public loaderEl: HTMLDivElement;
+  public loaderEl!: HTMLDivElement;
 
   @Input()
   public set appLoader(value: boolean) {

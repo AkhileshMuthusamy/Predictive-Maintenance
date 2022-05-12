@@ -19,10 +19,12 @@ export class NewDeviceDialogComponent implements OnInit {
     private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<NewDeviceDialogComponent>,
     private fb: FormBuilder) {
-      this.newDeviceForm = this.fb.group({
-        device_name: ['', [Validators.required]],
-      });
-    }
+    // Disabled dialog close when clicked outside
+    dialogRef.disableClose = true;
+    this.newDeviceForm = this.fb.group({
+      device_name: ['', [Validators.required]],
+    });
+  }
 
   ngOnInit(): void {
   }
@@ -41,7 +43,7 @@ export class NewDeviceDialogComponent implements OnInit {
     this.apiService.addNewDevice(this.newDeviceForm.value).subscribe(response => {
       if (!response.error) {
         this.snackBar.open(response.message || 'Device added successfully!', 'Close', {duration: 2000});
-        this.dialogRef.close();
+        this.dialogRef.close('SUCCESS');
       }
     }, () => {
       this.isLoading = false;

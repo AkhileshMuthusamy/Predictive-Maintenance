@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  navigate(path): void {
+  navigate(path: any): void {
     this.router.navigate([path]).then(() => {});
   }
 }

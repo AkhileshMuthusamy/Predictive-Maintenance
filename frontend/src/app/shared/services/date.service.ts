@@ -11,7 +11,7 @@ export class DateService {
     return new Date(epoch);
   }
 
-  convertDateToString(date: Date): string {
+  convertDateToString(date: Date): string | null {
     if (date) {
       const strDate = `${date.getFullYear()}-` +
         `${(date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1}-` +
@@ -21,7 +21,7 @@ export class DateService {
     return null;
   }
 
-  getDateString(epoch: number): string {
+  getDateString(epoch: number): string | null {
     if (epoch) {
       const date = this.convertEpochToDate(epoch);
       return `${date.toDateString()} ${date.toLocaleTimeString()}`;

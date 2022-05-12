@@ -11,21 +11,21 @@ export class DragDropDirective {
 
 
   // Dragover listener
-  @HostListener('dragover', ['$event']) onDragOver(evt): any {
+  @HostListener('dragover', ['$event']) onDragOver(evt: any): any {
     evt.preventDefault();
     evt.stopPropagation();
     this.background = '#9ecbec';
     this.opacity = '0.8';
   }
   // Dragleave listener
-  @HostListener('dragleave', ['$event']) public onDragLeave(evt): any {
+  @HostListener('dragleave', ['$event']) public onDragLeave(evt: any): any {
     evt.preventDefault();
     evt.stopPropagation();
     this.background = '#f5fcff';
     this.opacity = '1';
   }
   // Drop listener
-  @HostListener('drop', ['$event']) public ondrop(evt): any {
+  @HostListener('drop', ['$event']) public ondrop(evt: any): any {
     evt.preventDefault();
     evt.stopPropagation();
     this.background = '#f5fcff';

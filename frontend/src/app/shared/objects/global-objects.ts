@@ -67,7 +67,7 @@ export interface SettingsResponse {
 }
 
 export interface Settings {
-  'id': string;
+  'id': string | null;
   'threshold': number;
   'date': string;
 }

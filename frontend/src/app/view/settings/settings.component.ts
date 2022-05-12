@@ -16,7 +16,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   settingsForm: FormGroup;
   isLoading = false;
 
-  $subscription: Subscription;
+  $subscription!: Subscription;
 
   constructor(
     private apiService: ApiService,

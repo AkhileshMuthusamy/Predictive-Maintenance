@@ -20,16 +20,18 @@ export class MainLayoutComponent implements OnInit {
     public mediaObserver: MediaObserver,
     private router: Router) {
       // Hide sidenav and toolbar on home page
-      this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
-        console.log(this.router.url);
-        console.log(event);
-        if (this.router.url === '/home') {
-          this.showMenu = false;
-          this.isHomePage = true;
-        } else {
-          this.showMenu = true;
-          this.isHomePage = false;
-        }
+      this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe({
+        next: (event) => {
+          console.log(this.router.url);
+          console.log(event);
+          if (this.router.url === '/home') {
+            this.showMenu = false;
+            this.isHomePage = true;
+          } else {
+            this.showMenu = true;
+            this.isHomePage = false;
+          }
+        }        
       });
 
       mediaObserver.asObservable().subscribe((mediaChange) => {
@@ -49,7 +51,7 @@ export class MainLayoutComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  navigate(path): void {
+  navigate(path: string): void {
     this.router.navigate([path]).then(() => {
       if (path === '/home') {
         // window.location.reload();

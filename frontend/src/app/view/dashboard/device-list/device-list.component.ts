@@ -25,7 +25,7 @@ export class DeviceListComponent implements OnInit, AfterViewInit, OnDestroy {
   totalLength = 0;
   threshold = 50;
 
-  barGraph = {
+  barGraph: any = {
     data: [
       {
         x: [],
@@ -51,10 +51,12 @@ export class DeviceListComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   };
 
-  $subscription: Subscription;
+  $subscription!: Subscription;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(PlotlyComponent) plotly: PlotlyComponent;
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
+  @ViewChild(PlotlyComponent)
+  plotly!: PlotlyComponent;
 
   constructor(
     public dialog: MatDialog,
@@ -107,18 +109,22 @@ export class DeviceListComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.loadDeviceList();
+      if (result === 'SUCCESS') {
+        this.loadDeviceList();
+      }
     });
   }
 
-  openEditDeviceDialog(row): void {
+  openEditDeviceDialog(row: any): void {
     const dialogRef = this.dialog.open(EditDeviceDialogComponent, {
       width: '450px',
       data: row
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.loadDeviceList();
+      if (result === 'SUCCESS') {
+        this.loadDeviceList();
+      }
     });
   }
 

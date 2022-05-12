@@ -7,6 +7,10 @@ import {DeviceInfo, PredictionGraphData, SensorReading, Settings} from 'src/app/
 import {ApiService} from 'src/app/shared/services/api.service';
 import {DataService} from 'src/app/shared/services/data.service';
 
+interface Object {
+  hasOwnProperty<T>(this: T, v: any): v is keyof T
+}
+
 @Component({
   selector: 'app-device-info',
   templateUrl: './device-info.component.html',
@@ -17,7 +21,7 @@ export class DeviceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   isLoading = false;
   isSensorReadingsLoading = false;
   isPredictionGraphLoading = false;
-  deviceId: string;
+  deviceId!: string;
   // To start value from 1
   // sensorsList = [...Array(2).keys()].map((x) => x + 1);
   sensorsList = [...Array(21).keys()];
@@ -48,22 +52,23 @@ export class DeviceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   dataLoading$: Observable<boolean> = of(false);
   totalLength = 0;
 
-  xAxis = [];
-  predictionXAxis = [];
+  xAxis: Array<number> = [];
+  predictionXAxis: Array<number> = [];
   predGraph: any;
   sensorGraph: any;
   rulGuage: any;
   threshold = 50;
-  deviceInfo: DeviceInfo;
+  deviceInfo!: DeviceInfo;
 
   displayPrediction = true;
   sensorReadingsTableView = true;
   displaySpinner = false;
-  timeout;
+  timeout: number | undefined;
 
-  $subscription: Subscription;
+  $subscription!: Subscription;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
 
 
   constructor(
@@ -76,8 +81,8 @@ export class DeviceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      if (params.id) {
-        this.deviceId = params.id;
+      if (params['id']) {
+        this.deviceId = params['id'];
         this.$subscription = this.dataService.getSettings().subscribe((settings: Settings | null) => {
           if (settings) {
             this.threshold = settings.threshold;
@@ -248,7 +253,7 @@ export class DeviceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
     };
   }
 
-  generateGraphData(sensorReadings: [SensorReading]): any {
+  generateGraphData(sensorReadings: any): any {
     const graphData = [];
     const sn: Array<Array<number>> = [];
     for (const sensorGraph of this.sensorsList) {
@@ -257,7 +262,7 @@ export class DeviceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
 
     for (const sensorReading of sensorReadings) {
       for (const sensorGraph of this.sensorsList) {
-        sn[sensorGraph].push(sensorReading['sn_' + (sensorGraph + 1)]);
+          sn[sensorGraph].push(sensorReading['sn_' + (sensorGraph + 1)]);
       }
 
     }
