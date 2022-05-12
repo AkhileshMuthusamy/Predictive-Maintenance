@@ -1,5 +1,5 @@
-@import '~@angular/material/theming';
-@include mat-core();
+@use '~@angular/material' as mat;
+@include mat.core();
 
 $primary: #154c79;
 $secondary: #5d6a68;
@@ -73,8 +73,8 @@ $md-accent: (
 );
 
 
-$my-app-primary: mat-palette($md-primary);
-$my-app-accent:  mat-palette($md-accent);
-$my-app-warn:    mat-palette($mat-deep-orange);
-$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
-@include angular-material-theme($my-app-theme);
+$my-app-primary: mat.define-palette($md-primary);
+$my-app-accent:  mat.define-palette($md-accent);
+$my-app-warn:    mat.define-palette(mat.$deep-orange-palette);
+$my-app-theme: mat.define-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+@include mat.all-component-themes($my-app-theme);
